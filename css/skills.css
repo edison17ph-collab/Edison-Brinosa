@@ -1,0 +1,36 @@
+/* skills.css - Skills section upgrade only. Load AFTER style.css and extras.css.
+   Uses transform/opacity/filter only, so nothing shifts the layout. */
+
+/* hexagon wrapper: carries float, glow and tilt (clip-path on .hex would clip them) */
+.hex-w{width:min(100%,128px);transition:filter .4s var(--ease),transform .2s ease-out;transform:perspective(520px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+.hex-w:nth-child(even)>.hex:not(:hover){background:var(--ink)} /* keeps your alternating shades */
+.hex{width:100%;transition:transform .35s var(--ease),background .3s,color .3s}
+.hex b,.hex span{transition:transform .35s var(--ease),opacity .3s}
+
+@media (hover:hover){
+  .chips li:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 10px 22px rgba(43,44,48,.22),0 0 0 4px rgba(43,44,48,.07)}
+  .hex-w:hover{filter:drop-shadow(0 0 12px rgba(43,44,48,.5)) drop-shadow(0 10px 14px rgba(43,44,48,.18))}
+  .hex:hover b{transform:scale(1.12)}
+}
+.chips li:active{transform:translateY(-1px) scale(.97);transition-duration:.1s}
+.hex:active{transform:scale(.96);transition-duration:.1s}
+
+@media (prefers-reduced-motion:no-preference){
+  /* hidden state only exists once skills.js has run (.sk-js), so the section is never stuck invisible */
+  .sk-js [data-sk]:not(.sk-in){opacity:0;transform:translateY(16px)}
+  .sk-js [data-sk]{transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .sk-js .rule[data-sk]:not(.sk-in){transform:scaleX(0);transform-origin:left}
+  .sk-js .chips:not(.sk-in) li,.sk-js .hexes:not(.sk-in) .hex-w{opacity:0}
+
+  /* entrance uses fill-mode "backwards": after it ends the normal styles return, so hover still works */
+  .chips.sk-in li{animation:skChip .6s var(--ease) backwards;animation-delay:calc(var(--i,0)*55ms)}
+  @keyframes skChip{from{opacity:0;transform:translateY(14px) scale(.92)}}
+
+  .hexes.sk-in .hex-w{
+    animation:skHex .8s var(--ease) backwards,skFloat var(--dur,7s) ease-in-out infinite;
+    animation-delay:calc(var(--i,0)*110ms),calc(var(--i,0)*110ms + .8s)}
+  @keyframes skHex{from{opacity:0;transform:translateY(20px) scale(.85)}}
+  @keyframes skFloat{50%{translate:0 -6px}}
+  .hex-w:nth-child(2){--dur:8s}.hex-w:nth-child(3){--dur:6.5s}.hex-w:nth-child(4){--dur:7.5s}.hex-w:nth-child(5){--dur:6.8s}.hex-w:nth-child(6){--dur:8.2s}
+  .hex-w:hover{animation-play-state:paused}
+}

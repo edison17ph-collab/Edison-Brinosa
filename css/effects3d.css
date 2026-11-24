@@ -1,0 +1,10 @@
+/* effects3d.css - 3D background canvas + visitor counter. Load after skills.css. */
+.bg3d{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+
+.visitors{display:flex;flex-direction:column;align-items:center;gap:10px;margin:0 0 22px}
+.vc-label{font:600 11px var(--font);letter-spacing:.22em;color:#e9e9eb}
+.vc-digits{display:flex;gap:5px}
+.vc-digits i{font:800 20px/1 var(--font);font-style:normal;letter-spacing:0;color:#fff;background:#36373b;border:1px solid var(--dark-line);min-width:30px;padding:9px 0;text-align:center;box-shadow:inset 0 -10px 14px rgba(0,0,0,.25);transition:transform .3s var(--ease)}
+.vc-digits i:hover{transform:translateY(-3px) rotateX(18deg)}
+.vc-note{font:500 10px var(--font);letter-spacing:.1em;opacity:.65;text-transform:none}
+@media(max-width:520px){.vc-digits i{min-width:26px;font-size:17px;padding:8px 0}}
